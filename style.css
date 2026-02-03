@@ -1,0 +1,201 @@
+/* Golden Hive Profit Tracker - Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --honey-gold: #f59e0b;
+    --honey-dark: #b45309;
+    --honey-light: #fef3c7;
+    --wax-cream: #fafaf9;
+    --bee-black: #292524;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--wax-cream);
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
+    min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f4;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d6d3d1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a29e;
+}
+
+/* Honeycomb Pattern Background */
+.honeycomb-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15L30 0z' fill-opacity='0.03' fill='%23f59e0b' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Smooth Transitions */
+.transition-all-300 {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input Number Styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Focus Ring Customization */
+.focus-ring:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: var(--honey-gold);
+    ring-offset: 2px;
+}
+
+/* Card Hover Effects */
+.honey-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.honey-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Weight Button Active State */
+.weight-btn.active {
+    background-color: var(--honey-gold);
+    color: white;
+    border-color: var(--honey-gold);
+}
+
+/* Profit Animation */
+@keyframes profitPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.profit-update {
+    animation: profitPulse 0.3s ease-in-out;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    main {
+        padding: 0;
+    }
+}
+
+/* Glass Morphism Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Loading Shimmer */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #f5f5f4 4%, #e7e5e4 25%, #f5f5f4 36%);
+    background-size: 1000px 100%;
+}
+
+/* Custom Range Slider */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #f59e0b;
+    cursor: pointer;
+    margin-top: -8px;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #e7e5e4;
+    border-radius: 2px;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+/* Tooltip Customization */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    background: #292524;
+    color: white;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    z-index: 50;
+    margin-bottom: 0.5rem;
+}

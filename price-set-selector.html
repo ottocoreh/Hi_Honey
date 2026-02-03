@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Price Set - Golden Hive</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/><circle cx='12' cy='12' r='3'/></svg>">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        secondary: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        (function() {
+            const lang = (localStorage.getItem('selectedLanguage') || 'en').toLowerCase();
+            if (lang === 'ar') {
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+            } else if (lang === 'fr') {
+                document.documentElement.lang = 'fr';
+                document.documentElement.dir = 'ltr';
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+            }
+        })();
+    </script>
+</head>
+<body class="bg-secondary-50 text-secondary-800 font-sans antialiased min-h-screen flex items-center justify-center honeycomb-bg">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl shadow-lg shadow-primary-200 mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </div>
+            <h1 id="selector-heading" class="text-4xl md:text-5xl font-bold text-primary-700 mb-4 tracking-tight">Welcome to Golden Hive</h1>
+            <p id="selector-subtitle" class="text-secondary-600 text-lg max-w-xl mx-auto">Select your pricing tier to access the profit calculator</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <!-- Retail Price Set -->
+            <button onclick="selectPriceSet('retail')" class="group relative bg-white rounded-3xl shadow-lg border-2 border-transparent hover:border-primary-400 transition-all duration-300 p-8 text-left hover:shadow-xl hover:-translate-y-1">
+                <div class="absolute top-6 right-6 w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-500 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 group-hover:text-white transition-colors">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </div>
+                <div class="mb-6">
+                    <div class="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </div>
+                    <h2 id="selector-retail-title" class="text-2xl font-bold text-secondary-800 mb-2">Retail Prices</h2>
+                    <p id="selector-retail-desc" class="text-secondary-600 leading-relaxed">Standard customer pricing for individual jar sales, farmers markets, and direct-to-consumer transactions.</p>
+                </div>
+                <div class="flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
+                    <span id="selector-access-retail">Access Calculator</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Wholesale Price Set -->
+            <button onclick="selectPriceSet('wholesale')" class="group relative bg-white rounded-3xl shadow-lg border-2 border-transparent hover:border-primary-400 transition-all duration-300 p-8 text-left hover:shadow-xl hover:-translate-y-1">
+                <div class="absolute top-6 right-6 w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-500 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600 group-hover:text-white transition-colors">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="mb-6">
+                    <div class="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-600">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h2 id="selector-wholesale-title" class="text-2xl font-bold text-secondary-800 mb-2">Wholesale Prices</h2>
+                    <p id="selector-wholesale-desc" class="text-secondary-600 leading-relaxed">Bulk pricing for distributors, retailers, restaurants, and large quantity orders with discounted rates.</p>
+                </div>
+                <div class="flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
+                    <span id="selector-access-wholesale">Access Calculator</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 group-hover:translate-x-1 transition-transform">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-12 text-center">
+            <p id="selector-footer" class="text-secondary-500 text-sm">You can switch between price sets anytime from the calculator header</p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const lang = (localStorage.getItem('selectedLanguage') || 'en').toLowerCase();
+            const t = (en, fr, ar) => (lang === 'fr' ? fr : lang === 'ar' ? ar : en);
+
+            document.getElementById('selector-heading').textContent =
+                t('Hey beautiful 😁', 'rappel toi toujours que tu es tous pour moi', '😁 مرحبا حياتي');
+            document.getElementById('selector-subtitle').textContent =
+                t('Select your pricing tier to access the profit calculator',
+                  'Choisissez votre niveau de prix pour accéder au calculateur de profit',
+                  'اختر نوع الأسعار للوصول إلى حاسبة الأرباح');
+
+            document.getElementById('selector-retail-title').textContent =
+                t('Retail Prices', 'Tarifs de détail', 'أسعار التجزئة');
+            document.getElementById('selector-retail-desc').textContent =
+                t('Standard customer pricing for individual jar sales, farmers markets, and direct-to-consumer transactions.',
+                  'Tarifs pour ventes au détail : pots individuels, marchés et vente directe.',
+                  'أسعار البيع المباشر للعملاء للمبيعات الفردية وفي الأسواق.');
+
+            document.getElementById('selector-wholesale-title').textContent =
+                t('Wholesale Prices', 'Tarifs de gros', 'أسعار الجملة');
+            document.getElementById('selector-wholesale-desc').textContent =
+                t('Bulk pricing for distributors, retailers, restaurants, and large quantity orders with discounted rates.',
+                  'Tarifs de gros pour distributeurs, détaillants, restaurants et commandes en grande quantité.',
+                  'أسعار خاصة للجملة للموزعين والمتاجر والمطاعم والطلبات الكبيرة.');
+
+            document.getElementById('selector-access-retail').textContent =
+                t('Access Calculator', 'Ouvrir le calculateur', 'فتح الحاسبة');
+            document.getElementById('selector-access-wholesale').textContent =
+                t('Access Calculator', 'Ouvrir le calculateur', 'فتح الحاسبة');
+
+            document.getElementById('selector-footer').textContent =
+                t('You can switch between price sets anytime from the calculator header',
+                  'Vous pouvez changer de grille tarifaire à tout moment depuis l’en-tête du calculateur',
+                  'يمكنك التبديل بين مجموعات الأسعار في أي وقت من رأس الحاسبة');
+        })();
+
+        function selectPriceSet(set) {
+            localStorage.setItem('selectedPriceSet', set);
+            window.location.href = set === 'wholesale' ? 'calculator-wholesale.html' : 'calculator-retail.html';
+        }
+    </script>
+</body>
+</html>

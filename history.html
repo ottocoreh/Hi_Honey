@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export History - Golden Hive</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/><circle cx='12' cy='12' r='3'/></svg>">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d',
+                            400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309',
+                            800: '#92400e', 900: '#78350f',
+                        },
+                        secondary: {
+                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1',
+                            400: '#a8a29e', 500: '#78716c', 600: '#57534e', 700: '#44403c',
+                            800: '#292524', 900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-secondary-50 text-secondary-800 font-sans antialiased">
+    <script src="components/app-header.js"></script>
+
+    <app-header></app-header>
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <div class="mb-8">
+            <h1 id="history-heading" class="text-3xl md:text-4xl font-bold text-primary-700 mb-2 tracking-tight">Export History</h1>
+            <p id="history-subtitle" class="text-secondary-600">Log of every report you’ve exported from the calculator.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg border border-primary-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-primary-50 border-b border-primary-100">
+                        <tr>
+                            <th id="history-th-datetime" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Date &amp; Time</th>
+                            <th id="history-th-set" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Price Set</th>
+                            <th id="history-th-revenue" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Revenue</th>
+                            <th id="history-th-cost" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Cost</th>
+                            <th id="history-th-profit" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Profit</th>
+                            <th id="history-th-items" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">Items</th>
+                            <th id="history-th-file" class="px-4 py-3 text-xs font-semibold text-secondary-600 uppercase tracking-wider">File</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody" class="divide-y divide-secondary-100">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="history-empty" class="hidden px-6 py-12 text-center text-secondary-500">
+                No exports yet. Export a report from the Retail or Wholesale calculator to see it here.
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-center gap-4">
+            <a id="history-retail-btn" href="calculator-retail.html" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg font-medium text-sm transition-colors">Retail Calculator</a>
+            <a id="history-wh-btn" href="calculator-wholesale.html" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg font-medium text-sm transition-colors">Wholesale Calculator</a>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            const lang = (localStorage.getItem('selectedLanguage') || 'en').toLowerCase();
+            const t = (en, fr, ar) => (lang === 'fr' ? fr : lang === 'ar' ? ar : en);
+            if (lang === 'ar') {
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+            } else if (lang === 'fr') {
+                document.documentElement.lang = 'fr';
+                document.documentElement.dir = 'ltr';
+            } else {
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+            }
+
+            document.getElementById('history-heading').textContent =
+                t('Export History', 'Historique des exports', 'سجل التصدير');
+            document.getElementById('history-subtitle').textContent =
+                t('Log of every report you’ve exported from the calculator.',
+                  'Historique de tous les rapports exportés depuis le calculateur.',
+                  'سجل بجميع التقارير التي قمت بتصديرها من الحاسبة.');
+            document.getElementById('history-th-datetime').textContent =
+                t('Date & Time', 'Date et heure', 'التاريخ والوقت');
+            document.getElementById('history-th-set').textContent =
+                t('Price Set', 'Grille tarifaire', 'مجموعة الأسعار');
+            document.getElementById('history-th-revenue').textContent =
+                t('Revenue', 'Chiffre d’affaires', 'الإيرادات');
+            document.getElementById('history-th-cost').textContent =
+                t('Cost', 'Coût', 'التكلفة');
+            document.getElementById('history-th-profit').textContent =
+                t('Profit', 'Profit', 'الربح');
+            document.getElementById('history-th-items').textContent =
+                t('Items', 'Articles', 'القطع');
+            document.getElementById('history-th-file').textContent =
+                t('File', 'Fichier', 'الملف');
+            document.getElementById('history-retail-btn').textContent =
+                t('Retail Calculator', 'Calculateur détail', 'حاسبة التجزئة');
+            document.getElementById('history-wh-btn').textContent =
+                t('Wholesale Calculator', 'Calculateur gros', 'حاسبة الجملة');
+
+            const KEY = 'goldenHiveExportHistory';
+            let history = [];
+            try {
+                const raw = localStorage.getItem(KEY);
+                if (raw) history = JSON.parse(raw);
+            } catch (e) {}
+            if (!Array.isArray(history)) history = [];
+
+            const tbody = document.getElementById('history-tbody');
+            const empty = document.getElementById('history-empty');
+
+            function formatMoney(n) {
+                return '$' + (typeof n === 'number' ? n.toFixed(2) : '0.00');
+            }
+
+            if (history.length === 0) {
+                empty.textContent = t(
+                    'No exports yet. Export a report from the Retail or Wholesale calculator to see it here.',
+                    'Aucun export pour le moment. Exportez un rapport depuis les calculateurs Détail ou Gros pour le voir ici.',
+                    'لا توجد عمليات تصدير بعد. صدّر تقريرًا من حاسبة التجزئة أو الجملة لعرضه هنا.'
+                );
+                empty.classList.remove('hidden');
+            } else {
+                history.forEach(function(entry) {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-secondary-50/50';
+                    tr.innerHTML =
+                        '<td class="px-4 py-3 text-sm">' + (entry.date || '') + ' ' + (entry.time || '') + '</td>' +
+                        '<td class="px-4 py-3"><span class="inline-block px-2 py-0.5 rounded text-xs font-medium ' +
+                        (entry.priceSet === 'wholesale' ? 'bg-secondary-200 text-secondary-700' : 'bg-primary-100 text-primary-700') + '">' +
+                        (entry.priceSet === 'wholesale'
+                            ? t('Wholesale', 'Gros', 'جملة')
+                            : t('Retail', 'Détail', 'تجزئة')) + '</span></td>' +
+                        '<td class="px-4 py-3 text-sm font-medium text-secondary-800">' + formatMoney(entry.revenue) + '</td>' +
+                        '<td class="px-4 py-3 text-sm text-secondary-600">' + formatMoney(entry.cost) + '</td>' +
+                        '<td class="px-4 py-3 text-sm font-semibold ' + (entry.profit >= 0 ? 'text-green-700' : 'text-red-600') + '">' + formatMoney(entry.profit) + '</td>' +
+                        '<td class="px-4 py-3 text-sm text-secondary-600">' + (entry.items != null ? entry.items : '—') + '</td>' +
+                        '<td class="px-4 py-3 text-xs text-secondary-500" title="' + (entry.filename || '') + '">' + (entry.filename || '—') + '</td>';
+                    tbody.appendChild(tr);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
